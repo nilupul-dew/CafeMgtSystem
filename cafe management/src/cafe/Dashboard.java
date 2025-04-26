@@ -1,6 +1,10 @@
 package cafe;
 
 import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -17,6 +21,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     public void init(){
         setImage();
+        setTime();
     }
     
     public void setImage(){
@@ -2000,6 +2005,28 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    public void setTime(){
+        new Thread (new Runnable(){
+            @Override
+            public void run(){
+                while (true){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Date date = new Date();
+                    SimpleDateFormat tf = new SimpleDateFormat("h:mm:ss aa");
+                    SimpleDateFormat df = new SimpleDateFormat("EEEE, dd-mm-yyyy");
+                    String time = tf.format(date);
+                    
+                    jTxTime.setText(time.split(" ")[0]+time.split(" ")[1]);
+                    jTxtDate.setText(df.format(date));
+                }
+            }
+    }).start();
+        
+    }
     
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
