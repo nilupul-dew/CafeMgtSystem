@@ -2,12 +2,14 @@ package cafe;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  * @author Dewmini
  */
 public class Dashboard extends javax.swing.JFrame {
 
+    private double total = 0.0;
     public Dashboard() {
         initComponents();
         init();
@@ -70,6 +72,14 @@ public class Dashboard extends javax.swing.JFrame {
         jLabelImage14.setIcon(new ImageIcon(img14));
     }
     
+    public boolean QtyIsZero(int qty){
+        if(qty==0){
+            JOptionPane.showMessageDialog(null, "Item Qualtity is zero. Please increase Itrm Quantity to proceed");
+            return false;
+        }
+        return true;
+    }
+    
     public void reset(){
         jSpinner1.setValue(0);
         jSpinner2.setValue(0);
@@ -102,6 +112,8 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jTxTime = new javax.swing.JLabel();
+        jTxtDate = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabelImage = new javax.swing.JLabel();
@@ -303,6 +315,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         jLabel1.setText("Venus Cafe");
 
+        jTxTime.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+
+        jTxtDate.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -310,11 +326,17 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jTxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+            .addComponent(jTxTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTxtDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(250, 250, 250));
@@ -1972,9 +1994,13 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+        int qty = Integer.parseInt(jSpinner1.getValue().toString());
+        if(!QtyIsZero(qty)){
+            //total+=qty;
+        }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox2ActionPerformed
@@ -2305,5 +2331,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldSubTotal;
     private javax.swing.JTextField jTextFieldTax;
     private javax.swing.JTextField jTextFieldTotal;
+    private javax.swing.JLabel jTxTime;
+    private javax.swing.JLabel jTxtDate;
     // End of variables declaration//GEN-END:variables
 }
