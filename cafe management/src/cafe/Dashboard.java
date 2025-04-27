@@ -137,7 +137,7 @@ public class Dashboard extends javax.swing.JFrame {
     public void venusCafe() {
         jTextArea.setText("********************* Venus Cafe ****************************\n"
                 + "Time : " + jTxTime.getText() + "      Date: " + jTxtDate.getText() + "\n***************************************************************\n"
-                + "Item name:\t\t\t" + "Price(Rs)\n\n");
+                + "Quantity \t Item name:\t\t" + "Price(Rs)\n\n");
     }
 
     public void setTime() {
@@ -382,6 +382,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(230, 242, 244));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230), 2));
 
         jPanel2.setBackground(new java.awt.Color(230, 230, 230));
@@ -2089,239 +2090,406 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         int qty = Integer.parseInt(jSpinner1.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox1.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 270.0; // Calculate price based on quantity
+
+        if (jCheckBox1.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel8.getText() + "\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox1.setSelected(false);
             }
-            double price = qty * 270.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel8.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox1.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;// Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         int qty = Integer.parseInt(jSpinner2.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox2.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 180.0; // Calculate price based on quantity
+
+        if (jCheckBox2.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel14.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox2.setSelected(false);
             }
-            double price = qty * 180.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel14.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox2.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         int qty = Integer.parseInt(jSpinner3.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox3.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 150.0; // Calculate price based on quantity
+
+        if (jCheckBox3.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel20.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox3.setSelected(false);
             }
-            double price = qty * 150.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel20.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox3.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         int qty = Integer.parseInt(jSpinner4.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox4.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 200.0; // Calculate price based on quantity
+
+        if (jCheckBox4.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel26.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox4.setSelected(false);
             }
-            double price = qty * 200.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel26.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox4.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;
+            x--;// Subtract the price
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
     private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
         int qty = Integer.parseInt(jSpinner5.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox5.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 200.0; // Calculate price based on quantity
+
+        if (jCheckBox5.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel32.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox5.setSelected(false);
             }
-            double price = qty * 200.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel32.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox5.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
     private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
         int qty = Integer.parseInt(jSpinner6.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox6.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 200.0; // Calculate price based on quantity
+
+        if (jCheckBox6.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel38.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox6.setSelected(false);
             }
-            double price = qty * 200.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel38.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox6.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox6ActionPerformed
 
     private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
         int qty = Integer.parseInt(jSpinner7.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox7.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 300.0; // Calculate price based on quantity
+
+        if (jCheckBox7.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel44.getText() + "\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox7.setSelected(false);
             }
-            double price = qty * 300.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel44.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox7.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox7ActionPerformed
 
     private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
         int qty = Integer.parseInt(jSpinner8.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox8.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 350.0; // Calculate price based on quantity
+
+        if (jCheckBox8.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel50.getText() + "\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox8.setSelected(false);
             }
-            double price = qty * 350.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel50.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox8.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
     private void jCheckBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox9ActionPerformed
         int qty = Integer.parseInt(jSpinner9.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox9.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 300.0; // Calculate price based on quantity
+
+        if (jCheckBox9.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel56.getText() + "\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox9.setSelected(false);
             }
-            double price = qty * 300.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel56.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox9.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox9ActionPerformed
 
     private void jCheckBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox11ActionPerformed
         int qty = Integer.parseInt(jSpinner11.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox11.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 100.0; // Calculate price based on quantity
+
+        if (jCheckBox11.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel68.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox11.setSelected(false);
             }
-            double price = qty * 100.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel68.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox11.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox11ActionPerformed
 
     private void jCheckBox12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox12ActionPerformed
         int qty = Integer.parseInt(jSpinner12.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox12.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 120.0; // Calculate price based on quantity
+
+        if (jCheckBox12.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel74.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox12.setSelected(false);
             }
-            double price = qty * 120.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel74.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox12.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox12ActionPerformed
 
     private void jCheckBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox13ActionPerformed
         int qty = Integer.parseInt(jSpinner13.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox13.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 180.0; // Calculate price based on quantity
+
+        if (jCheckBox13.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel80.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox13.setSelected(false);
             }
-            double price = qty * 180.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel80.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox13.setSelected(false);
-        }
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+         }
     }//GEN-LAST:event_jCheckBox13ActionPerformed
 
     private void jCheckBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox14ActionPerformed
         int qty = Integer.parseInt(jSpinner14.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox14.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 200.0; // Calculate price based on quantity
+
+        if (jCheckBox14.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel86.getText() + "\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox14.setSelected(false);
             }
-            double price = qty * 200.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel86.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox14.setSelected(false);
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
         }
     }//GEN-LAST:event_jCheckBox14ActionPerformed
 
     private void jCheckBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox15ActionPerformed
         int qty = Integer.parseInt(jSpinner15.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox15.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 250.0; // Calculate price based on quantity
+
+        if (jCheckBox15.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel92.getText() + "\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox15.setSelected(false);
             }
-            double price = qty * 250.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel92.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            dudate();
-        } else {
-            jCheckBox15.setSelected(false);
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
         }
     }//GEN-LAST:event_jCheckBox15ActionPerformed
 
@@ -2395,23 +2563,121 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jCheckBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox10ActionPerformed
         int qty = Integer.parseInt(jSpinner10.getValue().toString());
-        if (QtyIsZero(qty) && jCheckBox10.isSelected()) {
-            x++;
-            if (x == 1) {
-                venusCafe();
+        double price = qty * 250.0; // Calculate price based on quantity
+
+        if (jCheckBox10.isSelected()) {
+            if (QtyIsZero(qty)) {
+                x++;
+                if (x == 1) {
+                    venusCafe();
+                }
+                total += price;    // Add price
+                getTax(total);     // Update tax
+                jTextArea.setText(jTextArea.getText() + qty + "\t " + jLabel62.getText() + "\t" + String.format("%.2f", price) + "\n");
+                dudate();          // Update subtotal, tax and final total fields
+            } else {
+                jCheckBox10.setSelected(false);
             }
-            double price = qty * 250.0;
-            total += price;
-            getTax(total);
-            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel62.getText() + "\t\t" + String.format("%.2f", price) + "\n");
-            //jTextArea.setText(jTextArea.getText()+x+". "+jLabel62.getText()+"\t\t"+price+"\n");
-            //String.format("%.2f", price)
-            dudate();
-        } else {
-            jCheckBox10.setSelected(false);
+        } else { // When UNCHECKED
+            total -= price;        // Subtract the price
+            x--;
+            if (total < 0) {
+                total = 0;  // Safety: Don't let total go negative
+            }
+            getTax(total);         // Update tax based on new total
+            dudate();              // Update subtotal, tax and final total fields
+            regenerateReceipt();
+            // (Optional) Refresh the receipt text if you want it perfect
         }
     }//GEN-LAST:event_jCheckBox10ActionPerformed
 
+    private void regenerateReceipt() {
+        jTextArea.setText("");
+        venusCafe();
+        
+        int tempX = 1;
+        
+        if (jCheckBox1.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner1.getValue().toString())*270.0;
+            jTextArea.setText(jTextArea.getText() + (jSpinner1.getValue().toString()) + "\t " + jLabel8.getText() + "\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox2.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner2.getValue().toString())*180.0;
+            jTextArea.setText(jTextArea.getText() + (jSpinner2.getValue().toString()) + "\t " + jLabel14.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox3.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner3.getValue().toString())*150.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner3.getValue().toString() + "\t " + jLabel20.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox4.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner4.getValue().toString())*200.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner4.getValue().toString() + "\t" + jLabel26.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox5.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner5.getValue().toString())*200.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner5.getValue().toString() + "\t " + jLabel32.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox6.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner6.getValue().toString())*200.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner6.getValue().toString() + "\t " + jLabel38.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox7.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner7.getValue().toString())*300.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner7.getValue().toString() + "\t " + jLabel44.getText() + "\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox8.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner8.getValue().toString())*350.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner8.getValue().toString() + "\t " + jLabel50.getText() + "\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox9.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner9.getValue().toString())*300.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner9.getValue().toString() + "\t " + jLabel56.getText() + "\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox10.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner10.getValue().toString())*250.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner10.getValue().toString() + "\t " + jLabel62.getText() + "\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox11.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner11.getValue().toString())*100.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner11.getValue().toString() + "\t " + jLabel68.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox12.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner12.getValue().toString())*120.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner12.getValue().toString() + "\t " + jLabel74.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox13.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner13.getValue().toString())*180.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner13.getValue().toString() + "\t " + jLabel80.getText() + "\t\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox14.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner14.getValue().toString())*200.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner14.getValue().toString() + "\t " + jLabel86.getText() + "\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        if (jCheckBox15.isSelected()){
+            double itemPrice = Integer.parseInt(jSpinner15.getValue().toString())*250.0;
+            jTextArea.setText(jTextArea.getText() + jSpinner15.getValue().toString() + "\t " + jLabel92.getText() + "\t" + String.format("%.2f", itemPrice) + "\n");
+            dudate(); 
+        }
+        
+    }
+    
+    
+    
+    
     private void btnReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiptActionPerformed
         if (total != 0) {
             if (!btnTotal.isEnabled()) {
@@ -2443,23 +2709,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTotalActionPerformed
 
     private void getTax(double t) {
-        if (t >= 100.0 && t <= 200.0) {
-            tax = 10;
-        } else if (t > 200.0 && t <= 400.0) {
-            tax = 20;
-        } else if (t > 400.0 && t <= 600.0) {
-            tax = 40;
-        } else if (t > 600.0 && t <= 800.0) {
-            tax = 60;
-        } else if (t > 800.0 && t <= 1000.0) {
-            tax = 80;
-        } else if (t > 1000.0 && t <= 1500.0) {
-            tax = 100;
-        } else if (t > 1500.0 && t <= 2000.0) {
-            tax = 120;
-        } else if (t > 2000.0) {
-            tax = 150;
-        }
+        tax = 0.0;
     }
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -2495,8 +2745,8 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (double i=0.0; i<=1.0; i+=0.1){
-            String s = i+"";
+        for (double i = 0.0; i <= 1.0; i += 0.1) {
+            String s = i + "";
             float f = Float.valueOf(s);
             this.setOpacity(f);
             try {
@@ -2535,12 +2785,12 @@ public class Dashboard extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
+        //java.awt.EventQueue.invokeLater(new Runnable() {
+        //  @Override
+        //public void run() {
+        //  new Dashboard().setVisible(true);
+        //}
+        //});
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2742,4 +2992,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jTxTime;
     private javax.swing.JLabel jTxtDate;
     // End of variables declaration//GEN-END:variables
+
+    
 }
