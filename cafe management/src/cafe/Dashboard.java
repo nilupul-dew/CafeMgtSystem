@@ -1,6 +1,7 @@
 package cafe;
 
 import java.awt.Image;
+import java.awt.print.PrinterException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -14,24 +15,23 @@ import javax.swing.JOptionPane;
 public class Dashboard extends javax.swing.JFrame {
 
     private double total = 0.0;
-    private double tax=0.0;
-    
+    private double tax = 0.0;
+
     //for the receipt item numbering..
     private int x = 0;
-    
-    
+
     public Dashboard() {
         initComponents();
         init();
     }
 
-    public void init(){
+    public void init() {
         setImage();
         setTime();
     }
-    
-    public void setImage(){
-        ImageIcon icon = new ImageIcon(getClass().getResource("/images/images/chocolatecoffee.jpg"));        
+
+    public void setImage() {
+        ImageIcon icon = new ImageIcon(getClass().getResource("/images/images/chocolatecoffee.jpg"));
         ImageIcon icon1 = new ImageIcon(getClass().getResource("/images/images/coke.jpg"));
         ImageIcon icon2 = new ImageIcon(getClass().getResource("/images/images/coldcoffee.jpg"));
         ImageIcon icon3 = new ImageIcon(getClass().getResource("/images/images/fruitscake.jpg"));
@@ -46,9 +46,7 @@ public class Dashboard extends javax.swing.JFrame {
         ImageIcon icon12 = new ImageIcon(getClass().getResource("/images/images/rainbow.jpg"));
         ImageIcon icon13 = new ImageIcon(getClass().getResource("/images/images/strawberrycake.jpg"));
         ImageIcon icon14 = new ImageIcon(getClass().getResource("/images/images/vegetarianpizza.jpg"));
-   
-     
-        
+
         Image img = icon.getImage().getScaledInstance(jLabelImage.getWidth(), jLabelImage.getHeight(), Image.SCALE_SMOOTH);
         Image img1 = icon1.getImage().getScaledInstance(jLabelImage1.getWidth(), jLabelImage1.getHeight(), Image.SCALE_SMOOTH);
         Image img2 = icon2.getImage().getScaledInstance(jLabelImage2.getWidth(), jLabelImage2.getHeight(), Image.SCALE_SMOOTH);
@@ -65,7 +63,6 @@ public class Dashboard extends javax.swing.JFrame {
         Image img13 = icon13.getImage().getScaledInstance(jLabelImage13.getWidth(), jLabelImage13.getHeight(), Image.SCALE_SMOOTH);
         Image img14 = icon14.getImage().getScaledInstance(jLabelImage14.getWidth(), jLabelImage14.getHeight(), Image.SCALE_SMOOTH);
 
-        
         jLabelImage.setIcon(new ImageIcon(img));
         jLabelImage1.setIcon(new ImageIcon(img1));
         jLabelImage2.setIcon(new ImageIcon(img2));
@@ -82,17 +79,17 @@ public class Dashboard extends javax.swing.JFrame {
         jLabelImage13.setIcon(new ImageIcon(img13));
         jLabelImage14.setIcon(new ImageIcon(img14));
     }
-    
-    public boolean QtyIsZero(int qty){
-        if(qty==0){
+
+    public boolean QtyIsZero(int qty) {
+        if (qty == 0) {
             JOptionPane.showMessageDialog(null, "Item Qualtity is zero. Please increase Itrm Quantity to proceed");
             return false;
         }
         return true;
     }
-    
-    public void reset(){
-             
+
+    public void reset() {
+
         jSpinner1.setValue(0);
         jSpinner2.setValue(0);
         jSpinner3.setValue(0);
@@ -104,17 +101,17 @@ public class Dashboard extends javax.swing.JFrame {
         jSpinner9.setValue(0);
         jSpinner10.setValue(0);
         jSpinner11.setValue(0);
-        jSpinner12.setValue(0);        
+        jSpinner12.setValue(0);
         jSpinner13.setValue(0);
         jSpinner14.setValue(0);
         jSpinner15.setValue(0);
 
-        jTextFieldTax.setText("0.0");        
+        jTextFieldTax.setText("0.0");
         jTextFieldSubTotal.setText("0.0");
         jTextFieldTotal.setText("0.0");
-        
+
         jTextArea.setText("");
-        
+
         jCheckBox1.setSelected(false);
         jCheckBox2.setSelected(false);
         jCheckBox3.setSelected(false);
@@ -130,24 +127,24 @@ public class Dashboard extends javax.swing.JFrame {
         jCheckBox13.setSelected(false);
         jCheckBox14.setSelected(false);
         jCheckBox15.setSelected(false);
-        
+
         btnTotal.setEnabled(true);
-        total=0.0;
-        tax=0.0;
-        x=0;
+        total = 0.0;
+        tax = 0.0;
+        x = 0;
     }
-    
+
     public void venusCafe() {
         jTextArea.setText("********************* Venus Cafe ****************************\n"
-        + "Time : " + jTxTime.getText() + "      Date: " + jTxtDate.getText() + "\n***************************************************************\n"
-                +"Item name:\t\t"+"Price(Rs)\n\n");
+                + "Time : " + jTxTime.getText() + "      Date: " + jTxtDate.getText() + "\n***************************************************************\n"
+                + "Item name:\t\t\t" + "Price(Rs)\n\n");
     }
-    
-    public void setTime(){
-        new Thread (new Runnable(){
+
+    public void setTime() {
+        new Thread(new Runnable() {
             @Override
-            public void run(){
-                while (true){
+            public void run() {
+                while (true) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -158,22 +155,23 @@ public class Dashboard extends javax.swing.JFrame {
                     SimpleDateFormat df = new SimpleDateFormat("EEEE, dd-MM-yyyy");
                     //here mm gives minutes while MM gives months
                     String time = tf.format(date);
-                    
-                    jTxTime.setText(time.split(" ")[0]+time.split(" ")[1]);
+
+                    jTxTime.setText(time.split(" ")[0] + time.split(" ")[1]);
                     jTxtDate.setText(df.format(date));
                 }
             }
-    }).start();
-        
-    }
-    
-    public void dudate(){
-        jTextFieldTax.setText(String.valueOf(tax));
-        jTextFieldSubTotal.setText(String.valueOf(total));
-        jTextFieldTotal.setText(String.valueOf(total+tax));
+        }).start();
 
     }
-    
+
+    public void dudate() {
+        jTextFieldTax.setText(String.valueOf(String.format("%.2f", tax)));
+        jTextFieldSubTotal.setText(String.valueOf(String.format("%.2f", total)));
+        double finaltotal = tax + total;
+        jTextFieldTotal.setText(String.valueOf(String.format("%.2f", finaltotal)));
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -361,7 +359,7 @@ public class Dashboard extends javax.swing.JFrame {
         jSpinner10 = new javax.swing.JSpinner();
         jCheckBox10 = new javax.swing.JCheckBox();
         jPanel24 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnReceipt = new javax.swing.JButton();
         btnTotal = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
@@ -378,6 +376,11 @@ public class Dashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230), 2));
 
@@ -1868,13 +1871,13 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel24.setBackground(new java.awt.Color(250, 250, 250));
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 19)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Receipt");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnReceipt.setBackground(new java.awt.Color(0, 102, 255));
+        btnReceipt.setFont(new java.awt.Font("Times New Roman", 1, 19)); // NOI18N
+        btnReceipt.setForeground(new java.awt.Color(255, 255, 255));
+        btnReceipt.setText("Receipt");
+        btnReceipt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnReceiptActionPerformed(evt);
             }
         });
 
@@ -1916,7 +1919,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(btnTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1933,7 +1936,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -1957,7 +1960,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel4.setText("Total");
+        jLabel4.setText("Total (Rs)");
 
         jTextFieldTax.setEditable(false);
         jTextFieldTax.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -1970,10 +1973,10 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel10.setText("Sub Total");
+        jLabel10.setText("Sub Total (Rs)");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel3.setText("Tax");
+        jLabel3.setText("Tax (Rs)");
 
         jTextFieldTotal.setEditable(false);
         jTextFieldTotal.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
@@ -2006,10 +2009,13 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldTax, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2083,252 +2089,238 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         int qty = Integer.parseInt(jSpinner1.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox1.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox1.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 270.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel8.getText()+"\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel8.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox1.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         int qty = Integer.parseInt(jSpinner2.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox2.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox2.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 180.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel14.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel14.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox2.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         int qty = Integer.parseInt(jSpinner3.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox3.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox3.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 150.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel20.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel20.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox3.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         int qty = Integer.parseInt(jSpinner4.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox4.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox4.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 200.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel26.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel26.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox4.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
     private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
         int qty = Integer.parseInt(jSpinner5.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox5.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox5.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 200.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel32.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel32.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox5.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
     private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
         int qty = Integer.parseInt(jSpinner6.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox6.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox6.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 200.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel38.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel38.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox6.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox6ActionPerformed
 
     private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
         int qty = Integer.parseInt(jSpinner7.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox7.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox7.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 300.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel44.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel44.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox7.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox7ActionPerformed
 
     private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
         int qty = Integer.parseInt(jSpinner8.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox8.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox8.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 350.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel50.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel50.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox8.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
     private void jCheckBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox9ActionPerformed
         int qty = Integer.parseInt(jSpinner9.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox9.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox9.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 300.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel56.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel56.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox9.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox9ActionPerformed
 
     private void jCheckBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox11ActionPerformed
         int qty = Integer.parseInt(jSpinner11.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox11.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox11.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 100.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel68.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel68.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox11.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox11ActionPerformed
 
     private void jCheckBox12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox12ActionPerformed
         int qty = Integer.parseInt(jSpinner12.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox12.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox12.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 120.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel74.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel74.getText() + "\t\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox12.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox12ActionPerformed
 
     private void jCheckBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox13ActionPerformed
         int qty = Integer.parseInt(jSpinner13.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox13.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox13.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 180.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel80.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel80.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox13.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox13ActionPerformed
 
     private void jCheckBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox14ActionPerformed
         int qty = Integer.parseInt(jSpinner14.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox14.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox14.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 200.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel86.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel86.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox14.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox14ActionPerformed
 
     private void jCheckBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox15ActionPerformed
         int qty = Integer.parseInt(jSpinner15.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox15.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox15.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 250.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel92.getText()+"\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel92.getText() + "\t\t" + String.format("%.2f", price) + "\n");
             dudate();
-        }
-        else{
+        } else {
             jCheckBox15.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox15ActionPerformed
@@ -2403,68 +2395,73 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jCheckBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox10ActionPerformed
         int qty = Integer.parseInt(jSpinner10.getValue().toString());
-        if(QtyIsZero(qty) && jCheckBox10.isSelected()){
+        if (QtyIsZero(qty) && jCheckBox10.isSelected()) {
             x++;
-            if(x==1){
+            if (x == 1) {
                 venusCafe();
             }
             double price = qty * 250.0;
-            total +=price;
+            total += price;
             getTax(total);
-            jTextArea.setText(jTextArea.getText()+x+". "+jLabel62.getText()+"\t\t"+price+"\n");
+            jTextArea.setText(jTextArea.getText() + x + ". " + jLabel62.getText() + "\t\t" + String.format("%.2f", price) + "\n");
+            //jTextArea.setText(jTextArea.getText()+x+". "+jLabel62.getText()+"\t\t"+price+"\n");
+            //String.format("%.2f", price)
             dudate();
-        }
-        else{
+        } else {
             jCheckBox10.setSelected(false);
         }
     }//GEN-LAST:event_jCheckBox10ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiptActionPerformed
+        if (total != 0) {
+            if (!btnTotal.isEnabled()) {
+                try {
+                    jTextArea.print();
+                } catch (PrinterException ex) {
+                    Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Click Total button first!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "you haven't purchased any product!");
+        }
+    }//GEN-LAST:event_btnReceiptActionPerformed
 
     private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
-        if (total==0){
+        if (total == 0) {
             JOptionPane.showMessageDialog(null, "You Haven't Selected Any Item");
-        }
-        else{
-            jTextArea.setText(jTextArea.getText()+"\n***************************************************************\n"
-                    +"Tax:\t\t"+tax+"\n"
-                    +"Sub Total :\t\t"+total+"\n"
-                    +"Total : \t\t"+(total+tax)+"\n\n"
-                    +"\n***************************Thank You******************************\n"
+        } else {
+            jTextArea.setText(jTextArea.getText() + "\n***************************************************************\n"
+                    + "Tax:\t\t" + tax + "\n"
+                    + "Sub Total :\t\t" + total + "\n"
+                    + "Total : \t\t" + (total + tax) + "\n\n"
+                    + "\n***************************Thank You******************************\n"
             );
             btnTotal.setEnabled(false);
         }
     }//GEN-LAST:event_btnTotalActionPerformed
 
-    private void getTax(double t){
-        if(t>=100.0 && t<=200.0){
+    private void getTax(double t) {
+        if (t >= 100.0 && t <= 200.0) {
             tax = 10;
-        }
-        else if(t>200.0 && t<=400.0){
+        } else if (t > 200.0 && t <= 400.0) {
             tax = 20;
-        }
-        else if(t>400.0 && t<=600.0){
+        } else if (t > 400.0 && t <= 600.0) {
             tax = 40;
-        }
-        else if(t>600.0 && t<=800.0){
+        } else if (t > 600.0 && t <= 800.0) {
             tax = 60;
-        }
-        else if(t>800.0 && t<=1000.0){
+        } else if (t > 800.0 && t <= 1000.0) {
             tax = 80;
-        }
-        else if(t>1000.0 && t<=1500.0){
+        } else if (t > 1000.0 && t <= 1500.0) {
             tax = 100;
-        }
-        else if(t>1500.0 && t<=2000.0){
+        } else if (t > 1500.0 && t <= 2000.0) {
             tax = 120;
-        }
-        else if(t>2000.0){
+        } else if (t > 2000.0) {
             tax = 150;
         }
     }
-    
+
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         reset();
     }//GEN-LAST:event_btnResetActionPerformed
@@ -2489,13 +2486,26 @@ public class Dashboard extends javax.swing.JFrame {
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x-xx, y-xy);
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel2MouseDragged
 
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
-        xx=evt.getX();
-        xy=evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel2MousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        for (double i=0.0; i<=1.0; i+=0.1){
+            String s = i+"";
+            float f = Float.valueOf(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -2535,9 +2545,9 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnReceipt;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnTotal;
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JCheckBox jCheckBox11;

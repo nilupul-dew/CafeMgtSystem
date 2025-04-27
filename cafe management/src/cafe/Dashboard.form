@@ -9,6 +9,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -2756,7 +2759,7 @@
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="btnTotal" min="-2" pref="113" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="113" max="-2" attributes="0"/>
+                      <Component id="btnReceipt" min="-2" pref="113" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnReset" min="-2" pref="113" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -2776,7 +2779,7 @@
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnTotal" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                              <Component id="btnReceipt" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="15" max="32767" attributes="0"/>
@@ -2785,7 +2788,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnReceipt">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="66" red="0" type="rgb"/>
@@ -2799,7 +2802,7 @@
                 <Property name="text" type="java.lang.String" value="Receipt"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReceiptActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnTotal">
@@ -2872,11 +2875,16 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel10" min="-2" pref="98" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" pref="98" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="0" pref="142" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel4" min="-2" pref="98" max="-2" attributes="0"/>
+                                          <Component id="jLabel3" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace pref="56" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jTextFieldTax" min="-2" pref="140" max="-2" attributes="0"/>
                                   <Component id="jTextFieldTotal" min="-2" pref="140" max="-2" attributes="0"/>
@@ -2957,7 +2965,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="20" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Total"/>
+                <Property name="text" type="java.lang.String" value="Total (Rs)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldTax">
@@ -2978,7 +2986,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="20" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sub Total"/>
+                <Property name="text" type="java.lang.String" value="Sub Total (Rs)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
@@ -2986,7 +2994,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="20" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tax"/>
+                <Property name="text" type="java.lang.String" value="Tax (Rs)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldTotal">
